@@ -19,9 +19,10 @@ export default function CoursePage() {
       <section className="welcome">
         <Image className="wm" src="/brand/symbol-purple.png" alt="" width={200} height={200} />
         <h2>הייוש, שמחה שאתם.ן כאן 👋</h2>
+        <p>הפרופיל שלכם בלינקדאין הוא הרבה מעבר ל&quot;נוכחות דיגיטלית&quot;.</p>
+        <p className="welcome-emph">הוא <span className="accent">הנכס המרכזי</span> שלכם ב-2026.</p>
         <p>
-          הפרופיל שלכם בלינקדאין הוא הרבה מעבר ל&quot;נוכחות דיגיטלית&quot;. הוא <span className="accent">הנכס המרכזי</span> שלכם
-          ב-2026. הקורס הזה נועד להפוך אותו ממקום שאנשים רק &quot;מבקרים בו&quot;, למנוע שיוצר פגישות ולקוחות באופן עקבי.
+          הקורס הזה נועד להפוך אותו ממקום שאנשים רק &quot;מבקרים בו&quot;, למנוע שיוצר פגישות ולקוחות באופן עקבי.
         </p>
         <p className="welcome-lead">אנחנו מדלגים על התיאוריות וניגשים ישר לאסטרטגיה שאני מיישמת בשטח.</p>
 

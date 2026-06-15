@@ -46,6 +46,12 @@ body{
 .navlink.active{color:var(--purple)}
 .navlink.active::after{content:"";position:absolute;bottom:-3px;right:0;left:0;height:2px;background:var(--purple);border-radius:2px}
 @media(max-width:640px){.appbar .ctx{display:none}.nav{gap:16px}}
+.auth-btn{border-radius:999px;padding:8px 18px;font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:inherit;transition:.15s}
+.auth-btn.signin{background:#0A66C2;color:#fff}
+.auth-btn.signup{background:var(--purple);color:#fff}
+.auth-btn:hover{filter:brightness(1.08)}
+/* Clerk sign-in/up card: purple heading */
+.cl-headerTitle{color:var(--purple)!important}
 
 /* ---------- marquee ---------- */
 .marquee{background:var(--purple);color:#fff;overflow:hidden;white-space:nowrap;
@@ -76,6 +82,7 @@ body{
 .welcome h2{margin:0 0 12px;font-size:24px;font-weight:500}
 .welcome > p{margin:0 0 12px;font-size:14.5px;color:var(--ink);line-height:1.75;max-width:64ch}
 .welcome .accent{color:var(--purple);font-weight:500}
+.welcome-emph{font-size:16.5px;font-weight:500;margin-bottom:14px}
 .welcome-lead{color:var(--muted);margin-bottom:24px}
 .outcomes-title{font-family:var(--font-aeonik);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple);margin-bottom:16px}
 .outcomes{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}

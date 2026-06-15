@@ -37,7 +37,11 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl" className={`${discovery.variable} ${aeonik.variable}`}>
       <body>
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            variables: { colorPrimary: "#712EAC", borderRadius: "0.75rem" },
+          }}
+        >
           <header className="appbar">
             <Link href="/" className="logo">
               <Image src="/brand/nav-logo.png" alt="OctaLoom" width={122} height={30} priority />
@@ -47,8 +51,12 @@ export default function RootLayout({
             </Show>
             <div className="right">
               <Show when="signed-out">
-                <SignInButton />
-                <SignUpButton />
+                <SignInButton>
+                  <button className="auth-btn signin">התחברות</button>
+                </SignInButton>
+                <SignUpButton>
+                  <button className="auth-btn signup">הרשמה</button>
+                </SignUpButton>
               </Show>
               <Show when="signed-in">
                 <span className="ctx">כלי עזר לקורס לינקדאין</span>

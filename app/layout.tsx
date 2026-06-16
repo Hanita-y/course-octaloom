@@ -1,4 +1,5 @@
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { heIL } from "@clerk/localizations";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
@@ -28,7 +29,7 @@ const aeonik = localFont({
 
 export const metadata: Metadata = {
   title: "כלי עזר לקורס לינקדאין · OctaLoom",
-  description: "ארגז הכלים של קורס הלינקדאין לנשות AI מבית OctaLoom",
+  description: "קורס הלינקדאין של OctaLoom — בנו פרופיל שמייצר פגישות ולקוחות.",
 };
 
 export default function RootLayout({
@@ -38,8 +39,13 @@ export default function RootLayout({
     <html lang="he" dir="rtl" className={`${discovery.variable} ${aeonik.variable}`}>
       <body>
         <ClerkProvider
+          localization={heIL}
           appearance={{
-            variables: { colorPrimary: "#712EAC", borderRadius: "0.75rem" },
+            variables: {
+              colorPrimary: "#712EAC",
+              borderRadius: "0.9rem",
+              fontFamily: "var(--font-discovery), sans-serif",
+            },
           }}
         >
           <header className="appbar">

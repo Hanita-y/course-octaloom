@@ -32,6 +32,11 @@ export const metadata: Metadata = {
   description: "קורס הלינקדאין של OctaLoom — בנו פרופיל שמייצר פגישות ולקוחות.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {

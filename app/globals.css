@@ -297,3 +297,27 @@ button{font-family:inherit;cursor:pointer;border:none;border-radius:999px;font-w
   .footer .inner{grid-template-columns:1fr 1fr;gap:28px}
   .hero h1{font-size:30px}
 }
+
+/* ---------- mobile ---------- */
+@media(max-width:520px){
+  .wrap{padding:24px 14px 64px}
+  .appbar{padding:0 14px}
+  .appbar .logo img{height:26px}
+  .nav{gap:14px}
+  .navlink{font-size:13.5px}
+  .hero h1{font-size:26px}
+  .hero .sub{font-size:15px}
+  .welcome{padding:24px 20px 22px}
+  .welcome h2{font-size:20px}
+  .outcomes{gap:14px}
+  .card{padding:20px 18px}
+  .footer .inner{grid-template-columns:1fr;gap:24px}
+  .footer .bar{flex-direction:column;align-items:flex-start;gap:10px}
+  .chapter{padding:16px 16px}
+  .variation{flex-wrap:wrap}
+  .variation .txt{flex:1 1 100%;order:1}
+  .variation .chars{order:2}
+  .variation .copy{order:3;margin-inline-start:auto}
+  .auth-title{font-size:20px}
+  .chapter-nav{flex-direction:column}
+}

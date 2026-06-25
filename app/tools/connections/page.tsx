@@ -1,0 +1,55 @@
+import Link from "next/link";
+import LinkedInIcon from "@/components/LinkedInIcon";
+import ConnectionTemplates from "@/components/ConnectionTemplates";
+import ToolNote from "@/components/ToolNote";
+import { CONNECTIONS_INTRO, RULES_LEAD, BASE_RULES, SEQUENCE, PRO_BONUS } from "@/content/connections";
+
+export default function ConnectionsPage() {
+  return (
+    <div className="wrap">
+      <Link href="/tools" className="backlink">→ חזרה לכלים</Link>
+
+      <div className="hero">
+        <span className="eyebrow">
+          <LinkedInIcon />
+          כלי עזר לקורס
+        </span>
+        <h1 style={{ maxWidth: "none" }}>
+          תבניות <span className="accent">הודעות חיבור</span>
+        </h1>
+        <p className="sub" style={{ maxWidth: "60ch" }}>{CONNECTIONS_INTRO}</p>
+      </div>
+
+      <div className="pro-note">
+        <span className="tool-note-icon" aria-hidden>💡</span>
+        <div>
+          <strong>בונוס של מקצוענים</strong>
+          <p>{PRO_BONUS}</p>
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="step-label">כללי בסיס</div>
+        <p className="lead" style={{ fontSize: 14.5, marginBottom: 14 }}>{RULES_LEAD}</p>
+        <ul className="howto" style={{ listStyle: "disc" }}>
+          {BASE_RULES.map((r, i) => (
+            <li key={i}>{r}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="card">
+        <div className="step-label">הרצף המלא · 3 שלבים</div>
+        <ol className="howto">
+          {SEQUENCE.map((s, i) => (
+            <li key={i}>{s}</li>
+          ))}
+        </ol>
+      </div>
+
+      <ConnectionTemplates />
+
+      <ToolNote />
+    </div>
+  );
+}

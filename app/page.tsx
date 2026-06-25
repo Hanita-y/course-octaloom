@@ -1,10 +1,12 @@
 import Image from "next/image";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import ChapterList from "@/components/ChapterList";
+import NewsletterPrompt from "@/components/NewsletterPrompt";
 
 export default function CoursePage() {
   return (
     <div className="wrap">
+      <NewsletterPrompt />
       <div className="hero">
         <span className="eyebrow">
           <LinkedInIcon />

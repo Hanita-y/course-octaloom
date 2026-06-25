@@ -3,6 +3,20 @@ import { notFound } from "next/navigation";
 import { CHAPTERS } from "@/lib/chapters";
 import ChapterPlayer from "@/components/ChapterPlayer";
 
+// Render body text, turning markdown links [text](url) into clickable anchors.
+function renderBody(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (!m) return part;
+    return (
+      <a key={i} href={m[2]} target="_blank" rel="noopener noreferrer">
+        {m[1]}
+      </a>
+    );
+  });
+}
+
 export default async function ChapterPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const idx = CHAPTERS.findIndex((c) => c.id === id);
@@ -23,6 +37,13 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
       <p className="sub" style={{ marginBottom: 18 }}>{ch.desc}</p>
 
       <ChapterPlayer chapter={ch} />
+
+      {ch.overview && (
+        <section className="lesson-overview">
+          <p className="lo-hook">{ch.overview.hook}</p>
+          <p className="lo-body">{renderBody(ch.overview.body)}</p>
+        </section>
+      )}
 
       <div className="chapter-nav">
         {prev ? (

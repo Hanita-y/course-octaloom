@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FORMULAS, type Lang } from "@/lib/formulas";
 import LinkedInIcon from "@/components/LinkedInIcon";
+import ToolNote from "@/components/ToolNote";
 
 const FORMULA_META: Record<string, { num: number; icon: string; tag: string }> = {
   objection: { num: 1, icon: "🛡️", tag: "כשיש התנגדות חוזרת" },
@@ -185,6 +186,8 @@ export default function HeadlinePage() {
           </div>
         </div>
       )}
+
+      <ToolNote />
     </div>
   );
 }

@@ -27,9 +27,11 @@ export default function ToolsPage() {
           const soon = tool.status === "soon";
           const badgeClass = soon ? "soon" : tool.type;
           const badgeText = soon ? "בקרוב" : BADGE_LABEL[tool.type];
+          // Hide the "מוכן" badge on live static tools; keep AI / Gem / בקרוב.
+          const showBadge = soon || tool.type === "ai" || tool.type === "gem";
           const inner = (
             <>
-              <span className={`badge ${badgeClass}`}>{badgeText}</span>
+              {showBadge && <span className={`badge ${badgeClass}`}>{badgeText}</span>}
               <h3>{tool.title}</h3>
               <p>{tool.desc}</p>
               {!soon && <span className="arrow">←</span>}
@@ -40,6 +42,19 @@ export default function ToolsPage() {
               <div className="toolcard soon" key={tool.id}>
                 {inner}
               </div>
+            );
+          }
+          if (tool.external) {
+            return (
+              <a
+                className="toolcard"
+                href={tool.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={tool.id}
+              >
+                {inner}
+              </a>
             );
           }
           return (

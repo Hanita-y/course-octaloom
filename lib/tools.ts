@@ -9,11 +9,29 @@ export interface Tool {
   title: string;
   desc: string;
   href?: string;
+  external?: boolean; // href points to another site; open in a new tab
   type: ToolType;
   status: ToolStatus;
 }
 
+// Order matters: this is the display order on the /tools dashboard.
 export const TOOLS: Tool[] = [
+  {
+    id: "identity-audit",
+    title: "Identity Audit",
+    desc: "3 שאלות מפרק 5 שמוצאות את הזווית שרק אתם מביאים. נוסחת הבידול שלכם בתוכן.",
+    href: "/tools/identity-audit",
+    type: "static",
+    status: "live",
+  },
+  {
+    id: "profile-photo",
+    title: "פרומפטים לתמונה ראשית",
+    desc: "פרומפטים מוכנים ליצירת תמונה ראשית מקצועית מתמונה רגילה שלכם, עם מדריך לפי ChatGPT ו-Gemini.",
+    href: "/tools/profile-photo",
+    type: "static",
+    status: "live",
+  },
   {
     id: "headline",
     title: "מחולל כותרות",
@@ -23,32 +41,28 @@ export const TOOLS: Tool[] = [
     status: "live",
   },
   {
-    id: "about",
-    title: "פרומפטים ל-About",
-    desc: "פרומפטים מוכנים לכתיבת חלק ה-About: בעיה, גן עדן, קריאה לפעולה.",
-    type: "static",
-    status: "soon",
-  },
-  {
-    id: "profile-photo",
-    title: "פרומפטים לתמונת פרופיל",
-    desc: "פרומפטים ליצירת תמונת headshot מקצועית ולעריכת תמונה קיימת.",
-    type: "static",
-    status: "soon",
-  },
-  {
     id: "cover-text",
     title: "טקסט לבאנר",
-    desc: "פרומפטים לטקסט אסטרטגי לבאנר הפרופיל.",
+    desc: "פרומפט שבונה את הטקסט, הפריסה ופרומפט התמונה לבאנר, עם מדריך מהיר ודוגמאות.",
+    href: "/tools/cover-text",
     type: "static",
-    status: "soon",
+    status: "live",
+  },
+  {
+    id: "about",
+    title: "כתיבת אודות (About)",
+    desc: "פרומפט שמלווה אתכם שלב אחרי שלב לבנות About במבנה דף נחיתה, מוכן להעתקה.",
+    href: "/tools/about",
+    type: "static",
+    status: "live",
   },
   {
     id: "connections",
     title: "תבניות הודעות חיבור",
-    desc: "תבניות מוכנות להעתקה להודעות בקשת חיבור, לפי סוג הקשר.",
+    desc: "ספריית תבניות מוכנות להעתקה לבקשות חיבור ולהודעות, לפי סוג הקשר ומתי להשתמש.",
+    href: "/tools/connections",
     type: "static",
-    status: "soon",
+    status: "live",
   },
   {
     id: "posts",
@@ -58,11 +72,22 @@ export const TOOLS: Tool[] = [
     status: "soon",
   },
   {
-    id: "b2b-outreach",
-    title: "B2B Outreach",
-    desc: "מחרוזות חיפוש ותבניות פנייה ל-outreach ממוקד.",
+    id: "circulation-guide",
+    title: "מדריך הסירקולציה 🎁",
+    desc: "המתנה שלי על ה-Circulation Loop מפרק 3: סקרנות → פגיעות → אוטוריטה, שלושה סוגי פוסטים שמסתובבים כל שבוע. שלד מוכן, פרומפטים וקובץ SKILL לאוטומציה.",
+    href: "https://www.octagoodies.com/circulation-post-guide",
+    external: true,
     type: "static",
-    status: "soon",
+    status: "live",
+  },
+  {
+    id: "b2b-outreach",
+    title: "עוזר חיפוש הלקוח האידיאלי",
+    desc: "כלי שעוזר לאתר ולמפות את הלקוחות האידיאליים (ICP) שלכם לפנייה ממוקדת.",
+    href: "https://www.octagoodies.com/b2b-cluster",
+    external: true,
+    type: "static",
+    status: "live",
   },
   {
     id: "meeting-links",
@@ -77,5 +102,13 @@ export const TOOLS: Tool[] = [
     desc: "Gem ייעודי שעוזר לבנות voice, לוח תוכן 30 יום, ופוסטים.",
     type: "gem",
     status: "soon",
+  },
+  {
+    id: "weekly-plan",
+    title: "תוכנית 30 יום",
+    desc: "צ'ק-ליסט שבועי מפרק 5: שבוע אחר שבוע + שגרה יומית. סמנו, עקבו, שלחו למייל.",
+    href: "/tools/weekly-plan",
+    type: "static",
+    status: "live",
   },
 ];

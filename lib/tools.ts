@@ -101,8 +101,9 @@ export const TOOLS: Tool[] = [
   {
     id: "meeting-links",
     title: "לינק לפגישה",
-    desc: "3 מדריכים שלב-אחר-שלב ליצירת לינק שבו אנשים קובעים איתכם פגישה: Calendly, Google Appointments, Notion Calendar.",
-    href: "/tools/meeting-links",
+    desc: "מדריך שלב-אחר-שלב ליצירת לינק שבו אנשים קובעים איתכם פגישה. 3 דרכים: Calendly, Google Appointments, Notion Calendar.",
+    href: "https://www.octagoodies.com/meeting-links",
+    external: true,
     type: "static",
     status: "live",
   },

@@ -17,14 +17,14 @@ export interface RateResult {
   count: number;
 }
 
-// Returns allowed=false once the user has already used MAX_GEN today.
-export function checkAndIncrement(userId: string, today: string): RateResult {
+// Returns allowed=false once the user has already used `max` today (default MAX_GEN).
+export function checkAndIncrement(userId: string, today: string, max: number = MAX_GEN): RateResult {
   const rec = store.get(userId);
   if (!rec || rec.date !== today) {
     store.set(userId, { date: today, count: 1 });
     return { allowed: true, count: 1 };
   }
-  if (rec.count >= MAX_GEN) {
+  if (rec.count >= max) {
     return { allowed: false, count: rec.count };
   }
   rec.count += 1;

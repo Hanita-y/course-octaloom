@@ -1,4 +1,4 @@
-import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { ClerkProvider, Show, SignInButton, UserButton } from "@clerk/nextjs";
 import { heIL } from "@clerk/localizations";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -65,9 +65,7 @@ export default function RootLayout({
                 <SignInButton>
                   <button className="auth-btn signin">התחברות</button>
                 </SignInButton>
-                <SignUpButton>
-                  <button className="auth-btn signup">הרשמה</button>
-                </SignUpButton>
+                <Link href="/sign-up" className="auth-btn signup">הרשמה</Link>
               </Show>
               <Show when="signed-in">
                 <span className="ctx">כלי עזר לקורס לינקדאין</span>

@@ -2,8 +2,10 @@ import Image from "next/image";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import ChapterList from "@/components/ChapterList";
 import NewsletterPrompt from "@/components/NewsletterPrompt";
+import { requireCourseAccess } from "@/lib/access";
 
-export default function CoursePage() {
+export default async function CoursePage() {
+  await requireCourseAccess();
   return (
     <div className="wrap">
       <NewsletterPrompt />

@@ -1,6 +1,5 @@
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import type { NextRequest } from "next/server";
-import { upsertSubscriber, GROUPS } from "@/lib/mailerlite";
 
 export const runtime = "nodejs";
 
@@ -20,28 +19,8 @@ export async function POST(request: NextRequest) {
     return Response.json({ ignored: evt.type });
   }
 
-  const data = evt.data;
-  const primary = data.email_addresses?.find(
-    (e) => e.id === data.primary_email_address_id
-  );
-  const email = (primary || data.email_addresses?.[0])?.email_address;
-  if (!email) {
-    return Response.json({ ok: true, note: "no email on user" });
-  }
-
-  const name = [data.first_name, data.last_name].filter(Boolean).join(" ");
-  const meta = (data.unsafe_metadata || {}) as Record<string, unknown>;
-  const wantsNewsletter = meta.newsletter === true;
-
-  const groups = [GROUPS.course];
-  if (wantsNewsletter) groups.push(GROUPS.newsletter);
-
-  try {
-    await upsertSubscriber({ email, name, groups });
-  } catch (e) {
-    console.error("mailerlite upsert failed:", e);
-    return Response.json({ error: String((e as Error).message) }, { status: 500 });
-  }
-
-  return Response.json({ ok: true, email, newsletter: wantsNewsletter });
+  // Access + MailerLite course group now happen at code redemption (/api/redeem).
+  // Keeping the verified webhook as a log point and for future payment wiring.
+  console.log("user.created", evt.data.id);
+  return Response.json({ ok: true });
 }

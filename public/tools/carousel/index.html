@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" class="lang-he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../assets/brand/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/brand/favicon.png">
+  <link rel="preload" href="../assets/brand/fonts/DiscoveryFs-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/brand/fonts/Aeonik-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/brand/fonts/Aeonik-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <title>מחולל קרוסלות | קורס OctaLoom</title>
+  <meta name="description" content="מחולל קרוסלות חינמי ללינקדאין. מזינים נושא, ה-AI כותב את השקפים, אתם עורכים, בוחרים צבעים ומורידים PDF מוכן להעלאה. עברית ואנגלית.">
+  <link rel="canonical" href="https://octagoodies.com/linkedin-carousel/">
+  <meta property="og:title" content="LinkedIn Carousel Generator | OctaGoodies">
+  <meta property="og:description" content="מחולל קרוסלות חינמי ללינקדאין. נושא נכנס, PDF מעוצב יוצא.">
+  <meta property="og:url" content="https://octagoodies.com/linkedin-carousel/">
+  <meta property="og:image" content="https://octagoodies.com/assets/brand/og-image.png">
+  <link rel="stylesheet" href="./carousel.css">
+</head>
+
+<body>
+
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-eyebrow">
+    <span data-ai-only data-lang="he">✦ כלי AI חינמי</span>
+    <span data-ai-only data-lang="en">✦ Free AI Tool</span>
+    <span data-noai-only data-lang="he">✦ כלי חינמי</span>
+    <span data-noai-only data-lang="en">✦ Free Tool</span>
+  </div>
+  <h1 class="page-h1" data-lang="he">מחולל <em>קרוסלות</em> ללינקדאין <svg class="li-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="LinkedIn" role="img"><path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></h1>
+  <h1 class="page-h1" data-lang="en">LinkedIn <em>Carousel</em> Generator <svg class="li-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-label="LinkedIn" role="img"><path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></h1>
+  <p class="page-sub" data-ai-only data-lang="he">מזינים נושא, ה-AI כותב את השקפים, אתם עורכים ובוחרים צבעים. בסוף מורידים PDF מוכן להעלאה כפוסט מסמך.</p>
+  <p class="page-sub" data-ai-only data-lang="en">Enter a topic, AI writes the slides, you edit and pick colors. Download a PDF ready to post as a LinkedIn document.</p>
+  <p class="page-sub" data-noai-only data-lang="he">עורכים כל שקף, בוחרים צבעים, פונט ומיתוג, ומורידים PDF מוכן להעלאה כפוסט מסמך בלינקדאין.</p>
+  <p class="page-sub" data-noai-only data-lang="en">Edit every slide, pick colors, a font and your branding, and download a PDF ready to post as a LinkedIn document.</p>
+</header>
+
+<!-- GENERATOR -->
+<div class="tool-wrap tool-wrap--form">
+  <div class="tool-card">
+    <form id="gen-form" class="gen-form">
+      <div class="gen-field" id="gen-topic-field">
+        <label class="gen-label" for="gen-topic" data-lang="he">על מה הקרוסלה?</label>
+        <label class="gen-label" for="gen-topic" data-lang="en">What is the carousel about?</label>
+        <input type="text" id="gen-topic" class="gen-input" maxlength="300"
+          data-ph-he="לדוגמה: 5 טעויות שהורגות פוסטים בלינקדאין"
+          data-ph-en="e.g. 5 mistakes that kill LinkedIn posts"
+          placeholder="לדוגמה: 5 טעויות שהורגות פוסטים בלינקדאין">
+      </div>
+      <div class="gen-row">
+        <div class="gen-field">
+          <label class="gen-label" data-lang="he">מספר שקפים</label>
+          <label class="gen-label" data-lang="en">Slides</label>
+          <select id="gen-count" class="gen-select">
+            <option>3</option><option>4</option><option>5</option><option>6</option>
+            <option>7</option><option selected>8</option><option>9</option><option>10</option>
+          </select>
+        </div>
+        <div class="gen-field">
+          <label class="gen-label" data-lang="he">שפת הקרוסלה</label>
+          <label class="gen-label" data-lang="en">Carousel language</label>
+          <div class="seg" id="content-lang-seg">
+            <button type="button" data-val="he" class="on">עברית</button>
+            <button type="button" data-val="en">English</button>
+          </div>
+        </div>
+      </div>
+      <div class="gen-submit-row">
+        <button type="submit" class="gen-btn" id="gen-submit">
+          <span data-lang="he">צרו לי קרוסלה &#8592;</span>
+          <span data-lang="en">Generate my carousel &#8594;</span>
+        </button>
+        <p class="gen-hint">
+          <span data-lang="he">✦ מופעל על ידי Gemini AI &middot; חינם לגמרי</span>
+          <span data-lang="en">✦ Powered by Gemini AI &middot; Free</span>
+        </p>
+        <button type="button" class="gen-blank-link" id="blank-start">
+          <span data-ai-only data-lang="he">או להתחיל מתבנית ריקה בלי AI</span>
+          <span data-ai-only data-lang="en">or start from a blank template, no AI</span>
+          <span data-noai-only data-lang="he">התחילו לעצב את הקרוסלה &#8592;</span>
+          <span data-noai-only data-lang="en">Start designing your carousel &#8594;</span>
+        </button>
+      </div>
+    </form>
+
+    <div id="gen-error" class="gen-error"></div>
+
+    <div id="gen-loading" class="gen-loading">
+      <div class="gen-spinner"></div>
+      <p data-lang="he">כותבים לכם את השקפים...</p>
+      <p data-lang="en">Writing your slides...</p>
+    </div>
+  </div>
+</div>
+
+<!-- EDITOR + PREVIEW -->
+<div class="tool-wrap editor-wrap" id="editor-wrap">
+  <div class="editor-grid">
+
+    <div class="editor-panel">
+      <div class="tabs" id="tabs">
+        <button data-tab="slides" class="on"><span data-lang="he">שקפים</span><span data-lang="en">Slides</span></button>
+        <button data-tab="branding"><span data-lang="he">מיתוג</span><span data-lang="en">Branding</span></button>
+        <button data-tab="design"><span data-lang="he">עיצוב</span><span data-lang="en">Design</span></button>
+        <button data-tab="settings"><span data-lang="he">הגדרות</span><span data-lang="en">Settings</span></button>
+        <button type="button" class="tour-replay" id="tour-replay" title="הסבר על הטאבים / How the tabs work">?</button>
+      </div>
+
+      <div class="tab-body on" data-tab-body="slides">
+        <div id="slides-list"></div>
+        <button class="add-slide-btn" id="add-slide">
+          <span data-lang="he">+ הוספת שקף</span>
+          <span data-lang="en">+ Add slide</span>
+        </button>
+      </div>
+
+      <div class="tab-body" data-tab-body="branding">
+        <div class="brand-field">
+          <div class="brand-toggle-row">
+            <label class="switch"><input type="checkbox" id="brand-show-photo" checked><i></i></label>
+            <label data-lang="he">תמונה</label>
+            <label data-lang="en">Headshot</label>
+          </div>
+          <div class="photo-row">
+            <span class="photo-preview" id="photo-preview">☺</span>
+            <button type="button" class="mini-btn" id="photo-pick">
+              <span data-lang="he">בחירת תמונה</span>
+              <span data-lang="en">Select image</span>
+            </button>
+            <button type="button" class="mini-btn" id="photo-remove" style="display:none;">
+              <span data-lang="he">הסרה</span>
+              <span data-lang="en">Remove</span>
+            </button>
+            <input type="file" id="photo-input" accept="image/*" hidden>
+          </div>
+        </div>
+        <div class="brand-field">
+          <div class="brand-toggle-row">
+            <label class="switch"><input type="checkbox" id="brand-show-name" checked><i></i></label>
+            <label for="brand-name" data-lang="he">שם</label>
+            <label for="brand-name" data-lang="en">Author</label>
+          </div>
+          <input type="text" id="brand-name" maxlength="60" data-ph-he="השם שלכם" data-ph-en="Your name" placeholder="השם שלכם">
+        </div>
+        <div class="brand-field">
+          <div class="brand-toggle-row">
+            <label class="switch"><input type="checkbox" id="brand-show-handle" checked><i></i></label>
+            <label for="brand-handle" data-lang="he">טייטל / חברה</label>
+            <label for="brand-handle" data-lang="en">Title / Company</label>
+          </div>
+          <input type="text" id="brand-handle" maxlength="60" data-ph-he="הטייטל או שם החברה" data-ph-en="Your title or company" placeholder="הטייטל או שם החברה">
+        </div>
+        <label class="check-row">
+          <input type="checkbox" id="brand-intro-outro">
+          <span data-lang="he">להציג מיתוג רק בשקף הפתיחה והסיום</span>
+          <span data-lang="en">Show only in intro and outro slides</span>
+        </label>
+      </div>
+
+      <div class="tab-body" data-tab-body="design">
+        <div class="design-label"><span data-lang="he">פונט</span><span data-lang="en">Font</span></div>
+        <div class="font-chips" id="font-chips"></div>
+        <div class="design-label"><span data-lang="he">צבעים</span><span data-lang="en">Colors</span></div>
+        <div class="palette-grid" id="palette-grid"></div>
+        <div class="custom-colors" id="custom-colors">
+          <label class="custom-color-field"><span data-lang="he">רקע</span><span data-lang="en">Background</span><input type="color" id="cc-bg" value="#0F172A"></label>
+          <label class="custom-color-field"><span data-lang="he">טקסט</span><span data-lang="en">Text</span><input type="color" id="cc-text" value="#F8FAFC"></label>
+          <label class="custom-color-field"><span data-lang="he">הדגשה</span><span data-lang="en">Accent</span><input type="color" id="cc-accent" value="#7DD3FC"></label>
+        </div>
+      </div>
+
+      <div class="tab-body" data-tab-body="settings">
+        <div class="setting-row">
+          <span class="setting-label"><span data-lang="he">מספרי שקפים</span><span data-lang="en">Slide numbers</span></span>
+          <label class="switch"><input type="checkbox" id="set-numbers" checked><i></i></label>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label"><span data-lang="he">אינדיקטור החלקה</span><span data-lang="en">Swipe indicator</span></span>
+          <label class="switch"><input type="checkbox" id="set-swipe" checked><i></i></label>
+        </div>
+        <div class="setting-row">
+          <span class="setting-label"><span data-lang="he">טקסט ההחלקה</span><span data-lang="en">Swipe text</span></span>
+          <input type="text" id="set-swipe-text" maxlength="20" value="החליקו ←">
+        </div>
+      </div>
+    </div>
+
+    <div class="preview-col">
+      <p class="pv-count" id="pv-count"></p>
+      <div class="demo-badge" id="demo-badge" style="display:none;">
+        <span data-lang="he">✦ דוגמה במיתוג OctaLoom, להתרשמות בלבד. הקרוסלה שלכם תיוצא בצבעים ובפונטים שתבחרו בטאב העיצוב.</span>
+        <span data-lang="en">✦ OctaLoom-branded demo, preview only. Your carousel exports in the colors and fonts you pick in the Design tab.</span>
+      </div>
+      <div class="preview-strip" id="preview-strip"></div>
+      <div class="copy-cards" id="post-kit" style="display:none;">
+        <p class="arch-note" id="arch-note"></p>
+        <div class="copy-card">
+          <div class="copy-card-head">
+            <span data-lang="he">קאפשן לפוסט</span>
+            <span data-lang="en">Post caption</span>
+            <button type="button" class="mini-btn" id="copy-caption"><span data-lang="he">העתקה</span><span data-lang="en">Copy</span></button>
+          </div>
+          <textarea id="caption-text" rows="5"></textarea>
+        </div>
+        <div class="copy-card">
+          <div class="copy-card-head">
+            <span data-lang="he">תגובה ראשונה (מפרסמים מיד אחרי הפוסט)</span>
+            <span data-lang="en">First comment (post it right after)</span>
+            <button type="button" class="mini-btn" id="copy-comment"><span data-lang="he">העתקה</span><span data-lang="en">Copy</span></button>
+          </div>
+          <textarea id="comment-text" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="dl-bar">
+        <button class="dl-btn" id="dl-btn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span data-lang="he">הורדת PDF</span>
+          <span data-lang="en">Download PDF</span>
+        </button>
+        <p class="dl-progress" id="dl-progress"></p>
+        <p class="dl-note">
+          <span data-lang="he">1080&times;1350 &middot; מעלים ללינקדאין כפוסט מסמך</span>
+          <span data-lang="en">1080&times;1350 &middot; upload to LinkedIn as a document post</span>
+        </p>
+        <p class="dl-demo-note" id="dl-demo-note">
+          <span data-ai-only data-lang="he">זו דוגמת התרשמות במיתוג שלנו והיא לא להורדה. ערכו את הטקסט או צרו קרוסלה עם AI, בחרו צבעים ופונט בטאב העיצוב, וההורדה תיפתח.</span>
+          <span data-ai-only data-lang="en">This is our branded demo and it can't be downloaded. Edit the text or generate with AI, pick colors and a font in the Design tab, and the download unlocks.</span>
+          <span data-noai-only data-lang="he">זו דוגמת התרשמות במיתוג שלנו והיא לא להורדה. ערכו את הטקסט, בחרו צבעים ופונט בטאב העיצוב, וההורדה תיפתח.</span>
+          <span data-noai-only data-lang="en">This is our branded demo and it can't be downloaded. Edit the text, pick colors and a font in the Design tab, and the download unlocks.</span>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HOW-TO -->
+<div class="tool-wrap" style="padding-top:0;">
+  <h2 class="section-title">
+    <span data-lang="he">איך זה עובד</span>
+    <span data-lang="en">How it works</span>
+  </h2>
+  <div class="howto-grid">
+    <div class="howto-card">
+      <div class="howto-num">1</div>
+      <h4 data-ai-only data-lang="he">מזינים נושא</h4><h4 data-ai-only data-lang="en">Enter a topic</h4>
+      <h4 data-noai-only data-lang="he">מתחילים</h4><h4 data-noai-only data-lang="en">Start</h4>
+      <p data-ai-only data-lang="he">כותבים במשפט אחד על מה הקרוסלה, וה-AI כותב פתיח, שקפי תוכן וסגירה. אפשר גם להתחיל מתבנית ריקה.</p>
+      <p data-ai-only data-lang="en">One sentence about your carousel, and AI writes the hook, content slides and CTA. A blank template works too.</p>
+      <p data-noai-only data-lang="he">בוחרים מספר שקפים ושפה ומתחילים לעצב. כל שקף מחכה לכם עם מבנה מוכן: פתיח, תוכן וסגירה.</p>
+      <p data-noai-only data-lang="en">Pick a slide count and language and start designing. Each slide is ready with a structure: hook, content and close.</p>
+    </div>
+    <div class="howto-card">
+      <div class="howto-num">2</div>
+      <h4 data-lang="he">עורכים</h4><h4 data-lang="en">Edit</h4>
+      <p data-lang="he">משנים כל כותרת וכל טקסט, מוסיפים ומסדרים שקפים עד שזה נשמע כמוכם.</p>
+      <p data-lang="en">Rewrite any title or body, add and reorder slides until it sounds like you.</p>
+    </div>
+    <div class="howto-card">
+      <div class="howto-num">3</div>
+      <h4 data-lang="he">ממתגים</h4><h4 data-lang="en">Brand it</h4>
+      <p data-lang="he">שם, תמונה ו-handle על השקפים, ופלטת צבעים שמתאימה למותג שלכם.</p>
+      <p data-lang="en">Your name, photo and handle on the slides, plus a color palette that fits your brand.</p>
+    </div>
+    <div class="howto-card">
+      <div class="howto-num">4</div>
+      <h4 data-lang="he">מורידים ומפרסמים</h4><h4 data-lang="en">Download &amp; post</h4>
+      <p data-lang="he">מורידים PDF ומעלים ללינקדאין כפוסט מסמך. זהו, יש לכם קרוסלה.</p>
+      <p data-lang="en">Download the PDF and upload it to LinkedIn as a document post. Done.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="tool-wrap" style="padding-top:0;">
+  <h2 class="section-title">
+    <span data-lang="he">שאלות נפוצות</span>
+    <span data-lang="en">FAQ</span>
+  </h2>
+  <div class="faq-list">
+    <details class="explain-item">
+      <summary class="explain-summary"><span class="explain-chevron"></span>
+        <span><span data-lang="he">הכלי באמת חינמי?</span><span data-lang="en">Is it really free?</span></span>
+      </summary>
+      <div class="explain-body">
+        <p data-ai-only data-lang="he">כן. יצירה ועריכה פתוחות לגמרי. בהורדה הראשונה נבקש אימייל פעם אחת, וזהו.</p>
+        <p data-ai-only data-lang="en">Yes. Generating and editing are fully open. On your first download we ask for your email once, that's it.</p>
+        <p data-noai-only data-lang="he">כן. העריכה, המיתוג וההורדה פתוחים לגמרי. בהורדה הראשונה נבקש אימייל פעם אחת, וזהו.</p>
+        <p data-noai-only data-lang="en">Yes. Editing, branding and downloading are fully open. On your first download we ask for your email once, that's it.</p>
+      </div>
+    </details>
+    <details class="explain-item">
+      <summary class="explain-summary"><span class="explain-chevron"></span>
+        <span><span data-lang="he">איזה פורמט לינקדאין מקבלת?</span><span data-lang="en">What format does LinkedIn accept?</span></span>
+      </summary>
+      <div class="explain-body">
+        <p data-lang="he">קרוסלה בלינקדאין היא קובץ PDF שמעלים כפוסט מסמך. הכלי מייצר PDF בגודל 1080&times;1350, הפורמט הגבוה שנותן לשקפים יותר מקום על המסך.</p>
+        <p data-lang="en">A LinkedIn carousel is a PDF uploaded as a document post. This tool exports 1080&times;1350 pages, the taller format that gives slides more screen space.</p>
+      </div>
+    </details>
+    <details class="explain-item">
+      <summary class="explain-summary"><span class="explain-chevron"></span>
+        <span><span data-lang="he">עברית עובדת טוב?</span><span data-lang="en">Does Hebrew work well?</span></span>
+      </summary>
+      <div class="explain-body">
+        <p data-lang="he">כן, הכלי נבנה קודם כל לעברית. השקפים מיושרים לימין, הפונט עברי, וה-PDF יוצא בדיוק כמו התצוגה המקדימה.</p>
+        <p data-lang="en">Yes, the tool was built Hebrew-first. Slides are right-aligned with a Hebrew font, and the PDF comes out exactly like the preview.</p>
+      </div>
+    </details>
+    <details class="explain-item">
+      <summary class="explain-summary"><span class="explain-chevron"></span>
+        <span><span data-lang="he">לאן הולכת התמונה שלי?</span><span data-lang="en">Where does my photo go?</span></span>
+      </summary>
+      <div class="explain-body">
+        <p data-lang="he">לשום מקום. התמונה נשארת בדפדפן שלכם בלבד, ה-PDF נוצר אצלכם במחשב ושום קובץ לא עולה לשרת.</p>
+        <p data-lang="en">Nowhere. The photo stays in your browser only, the PDF is generated on your device and no file is ever uploaded to a server.</p>
+      </div>
+    </details>
+    <details class="explain-item">
+      <summary class="explain-summary"><span class="explain-chevron"></span>
+        <span><span data-lang="he">הטיוטה נשמרת?</span><span data-lang="en">Is my draft saved?</span></span>
+      </summary>
+      <div class="explain-body">
+        <p data-lang="he">כן, באופן מקומי בדפדפן. אפשר לסגור את הדף ולחזור, הקרוסלה תחכה לכם.</p>
+        <p data-lang="en">Yes, locally in your browser. Close the page and come back, your carousel will be waiting.</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- EMAIL GATE MODAL -->
+<div class="modal-overlay" id="email-modal">
+  <div class="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <h3 data-lang="he">עוד שנייה וה-PDF אצלכם</h3>
+    <h3 data-lang="en">One second and your PDF is ready</h3>
+    <p data-lang="he">השאירו אימייל פעם אחת וההורדה תיפתח, גם עכשיו וגם בכל הפעמים הבאות.</p>
+    <p data-lang="en">Leave your email once and downloads unlock, now and every time after.</p>
+    <form id="email-form">
+      <input type="text" id="gate-name" data-ph-he="שם" data-ph-en="Name" placeholder="שם">
+      <input type="email" id="gate-email" required data-ph-he="אימייל" data-ph-en="Email" placeholder="אימייל">
+      <button type="submit" class="gen-btn">
+        <span data-lang="he">להורדת ה-PDF &#8592;</span>
+        <span data-lang="en">Download the PDF &#8594;</span>
+      </button>
+      <p class="modal-privacy" data-lang="he">בלי ספאם. אפשר להסיר את עצמכם בקליק בכל מייל.</p>
+      <p class="modal-privacy" data-lang="en">No spam. Unsubscribe with one click in any email.</p>
+    </form>
+  </div>
+</div>
+
+<!-- off-screen export holder -->
+<div id="export-holder" aria-hidden="true"></div>
+
+<!-- FOOTER -->
+
+<!-- Deployment config. OctaGoodies runs the free (no-AI) version; the course sets ai:true. -->
+<script>
+  window.OG_CAROUSEL = {
+    ai: true,
+    apiBase: '/api/carousel',
+    assetBase: '/tools/carousel/',
+    emailGate: false
+  };
+</script>
+<script src="./carousel.js"></script>
+
+</body>
+</html>

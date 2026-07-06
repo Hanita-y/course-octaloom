@@ -17,6 +17,14 @@ export interface Tool {
 // Order matters: this is the display order on the /tools dashboard.
 export const TOOLS: Tool[] = [
   {
+    id: "carousel",
+    title: "מחולל קרוסלות ללינקדאין",
+    desc: "מזינים נושא, ה-AI כותב קרוסלה מלאה לפי שיטת הסירקולציה, ואתם עורכים, ממתגים, בוחרים צבעים ומורידים PDF מוכן לפוסט מסמך.",
+    href: "/tools/carousel",
+    type: "ai",
+    status: "live",
+  },
+  {
     id: "identity-audit",
     title: "Identity Audit",
     desc: "3 שאלות מפרק 5 שמוצאות את הזווית שרק אתם מביאים. נוסחת הבידול שלכם בתוכן.",

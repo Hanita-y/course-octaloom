@@ -449,3 +449,18 @@ a.auth-btn{text-decoration:none;display:inline-flex;align-items:center}
 .auth-links a{color:var(--purple);font-weight:700;text-decoration:underline;text-underline-offset:3px}
 .auth-links a:hover{filter:brightness(1.2)}
 .auth-links-sep{margin:0 10px;color:var(--muted)}
+
+/* Admin progress */
+.admin-sub{margin:0 0 18px;font-size:14px}
+.admin-sub a{color:var(--purple);font-weight:600;text-decoration:none}
+.admin-empty{color:var(--muted);font-size:15px;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:20px}
+.admin-scroll{overflow-x:auto;border-radius:12px}
+.progress-table{min-width:760px}
+.progress-table th,.progress-table td{text-align:center;white-space:nowrap}
+.progress-table .sticky-col{position:sticky;right:0;background:var(--white);text-align:right;font-weight:500;box-shadow:-1px 0 0 var(--line)}
+.progress-table thead .sticky-col{background:var(--purple-soft)}
+.pc-done{color:#2E7D32;font-weight:600}
+.pc-part{color:#B8860B;font-weight:600}
+.pc-none{color:var(--muted)}
+.tools-cell{text-align:right !important;white-space:normal !important;max-width:280px}
+.tool-chip{display:inline-block;background:var(--purple-soft);color:var(--purple);border-radius:100px;padding:3px 10px;font-size:12px;margin:2px}

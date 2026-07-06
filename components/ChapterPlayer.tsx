@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import Player from "@vimeo/player";
 import { setChapterProgress, markComplete, getProgress } from "@/lib/progress";
+import { syncVideo } from "@/lib/progress-sync";
 import type { Chapter } from "@/lib/chapters";
 
 // Wistia JS API queue (loaded by the player.js script below).
@@ -30,10 +31,12 @@ export default function ChapterPlayer({ chapter }: { chapter: Chapter }) {
       onReady(video: { bind: (ev: string, cb: (v: number) => void) => void }) {
         video.bind("percentwatchedchanged", (percent: number) => {
           setChapterProgress(chapter.id, percent * 100);
+          syncVideo(chapter.id, percent * 100);
           if (percent >= 0.95) setDone(true);
         });
         video.bind("end", () => {
           markComplete(chapter.id);
+          syncVideo(chapter.id, 100, true);
           setDone(true);
         });
       },
@@ -49,10 +52,12 @@ export default function ChapterPlayer({ chapter }: { chapter: Chapter }) {
     const player = new Player(ref.current);
     const onTime = (d: { percent: number }) => {
       setChapterProgress(chapter.id, d.percent * 100);
+      syncVideo(chapter.id, d.percent * 100);
       if (d.percent >= 0.95) setDone(true);
     };
     const onEnd = () => {
       markComplete(chapter.id);
+      syncVideo(chapter.id, 100, true);
       setDone(true);
     };
     player.on("timeupdate", onTime);
@@ -65,6 +70,7 @@ export default function ChapterPlayer({ chapter }: { chapter: Chapter }) {
 
   function handleMark() {
     markComplete(chapter.id);
+    syncVideo(chapter.id, 100, true);
     setDone(true);
   }
 

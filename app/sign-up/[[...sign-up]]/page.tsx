@@ -9,8 +9,10 @@ export default function SignUpPage() {
         <Image className="auth-logo" src="/brand/nav-logo.png" alt="OctaLoom" width={150} height={37} priority />
         <p className="auth-sub">ההרשמה לקורס נפתחת בקרוב</p>
         <WaitlistForm />
-        <p className="auth-consent">
-          יש לך קוד גישה? <a href="/join">להרשמה</a> · כבר יש לך חשבון? <a href="/sign-in">התחברות</a>
+        <p className="auth-links">
+          יש לך קוד גישה? <a href="/join">להרשמה</a>
+          <span className="auth-links-sep">·</span>
+          כבר יש לך חשבון? <a href="/sign-in">התחברות</a>
         </p>
       </div>
     </div>

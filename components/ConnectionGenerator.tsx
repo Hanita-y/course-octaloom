@@ -89,9 +89,13 @@ export default function ConnectionGenerator() {
   const isRequest = scenario?.kind === "request";
 
   return (
-    <div>
-      <div className="section-head">
-        <h2>מחולל הודעות מותאמות</h2>
+    <div className="gen">
+      <div className="gen-hero">
+        <span className="gen-eyebrow">✦ מחולל AI</span>
+        <h2>נסחו הודעה שלא נשמעת גנרית</h2>
+        <p>
+          בוחרים תרחיש, מדביקים פוסט של הפרוספקט, ומקבלים 3 וריאציות שכל אחת נאחזת בפרט אמיתי מהתוכן שלו.
+        </p>
       </div>
 
       <div className="card">

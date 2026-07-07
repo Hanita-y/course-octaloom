@@ -28,7 +28,7 @@ export const POLL_CATEGORIES: Record<string, PollCategory> = {
     chapter: "פרק 3",
     angle:
       "Uncommon Opinion. פתחי במתח: אמירה שכולם חושבים אבל אף אחת לא מעלה בפוסט. האופציות מייצגות עמדות שונות באמת, בלי תשובה 'נכונה' מובנת מאליה.",
-    icon: "🔥",
+    icon: "🌶️",
     tag: "מתח יוצר engagement",
   },
   aireality: {
@@ -48,10 +48,10 @@ export const POLL_CATEGORIES: Record<string, PollCategory> = {
     tag: "trade-off שמזין DM",
   },
   mistake: {
-    name: "הטעות שכולן עושות בניש שלך",
+    name: "הטעות שכולן עושות בנישה שלך",
     chapter: "פרק 5",
     angle:
-      "Confession poll. הטעות הנפוצה בניש, בניסוח שמאפשר לקורא להתוודות בשקט דרך ההצבעה. רלוונטי, לא שיפוטי.",
+      "Confession poll. הטעות הנפוצה בנישה, בניסוח שמאפשר לקורא להתוודות בשקט דרך ההצבעה. רלוונטי, לא שיפוטי.",
     icon: "💥",
     tag: "וידוי מתוך ה-Identity Audit",
   },
@@ -68,7 +68,7 @@ export const POLL_CATEGORIES: Record<string, PollCategory> = {
     chapter: "פרק 4",
     angle:
       "Poll שמחמם קרקע לפוסט lead magnet של אותו שבוע. השאלה חושפת את נקודת התקיעות שה-lead magnet פותר.",
-    icon: "🧲",
+    icon: "🌉",
     tag: "מחמם את פוסט ה-lead magnet",
   },
   howi: {
@@ -80,7 +80,7 @@ export const POLL_CATEGORIES: Record<string, PollCategory> = {
     tag: "אוטוריטה מהניסיון",
   },
   trend: {
-    name: "טרנד בניש שלך",
+    name: "טרנד בנישה שלך",
     chapter: "פרק 3",
     angle:
       "Is-X-dead / prediction. 'האם X מת ב-2026?' או 'מה ינצח?'. פרובוקציה + סימון שאת יודעת לאן הדברים הולכים.",
@@ -105,7 +105,7 @@ export function buildPollPrompt(
   lang: Lang
 ): string {
   const c = POLL_CATEGORIES[categoryKey];
-  const nicheLine = niche.trim() ? `הניש/התחום של המשתמשת: ${niche.trim()}` : "הניש לא צוין. הישארי כללית ורלוונטית לקהל B2B / נשות AI / יוצרות תוכן.";
+  const nicheLine = niche.trim() ? `הנישה/התחום של המשתמשת: ${niche.trim()}` : "הנישה לא צוינה. הישארי כללית ורלוונטית לקהל B2B / נשות AI / יוצרות תוכן.";
   const audienceLine = audience.trim()
     ? `קהל היעד של הפוסט (ICP — הלקוחה האידיאלית שמשלמת, לא כלל העוקבים): ${audience.trim()}`
     : "קהל היעד לא צוין. כווני לאשת מקצוע B2B ישראלית שבונה נוכחות בלינקדאין.";

@@ -168,7 +168,7 @@ export default function PollPage() {
             ))}
           </select>
 
-          <label>הניש / התחום שלכם (אופציונלי)</label>
+          <label>הנישה / התחום שלכם (אופציונלי)</label>
           <input
             type="text"
             placeholder="למשל: אוטומציות AI לעסקים קטנים, ייעוץ HR, קופירייטינג"

@@ -159,6 +159,9 @@
   var DRAFT_KEY = 'ogCarouselDraft:v1';
   var saveTimer = null;
   function saveDraft() {
+    // Never persist the untouched demo: otherwise returning visitors reload a stale
+    // demo and never see updates. A real draft is only saved once the user edits.
+    if (isDemo) return;
     clearTimeout(saveTimer);
     saveTimer = setTimeout(function () {
       try {

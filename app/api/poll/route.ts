@@ -10,7 +10,7 @@ import {
 import { checkAndIncrement, MAX_GEN } from "@/lib/ratelimit";
 
 const GEMINI_MODEL = "gemini-2.5-flash";
-const KIMI_MODEL = process.env.KIMI_MODEL || "kimi-k2-0711-preview";
+const KIMI_MODEL = process.env.KIMI_MODEL || "kimi-k2.5";
 const TONES: Tone[] = ["ציני", "חם", "פרובוקטיבי"];
 
 interface Body {
@@ -67,7 +67,8 @@ async function generateWithKimi(prompt: string, key: string): Promise<GenResult>
     body: JSON.stringify({
       model: KIMI_MODEL,
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.8,
+      // kimi-k2.5 / k2.6 only accept temperature 1.
+      temperature: 1,
       max_tokens: 4096,
       response_format: { type: "json_object" },
     }),

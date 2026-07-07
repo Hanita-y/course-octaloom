@@ -58,30 +58,43 @@ export async function POST(request: Request) {
     return Response.json({ error: "missing GEMINI_API_KEY on server" }, { status: 500 });
   }
 
+  const requestBody = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      maxOutputTokens: 4096,
+      temperature: 0.8,
+      // Force valid JSON so parsing is reliable.
+      responseMimeType: "application/json",
+      // gemini-2.5-flash is a thinking model; thinking tokens eat the output
+      // budget and can leave the text empty/truncated. Turn thinking off for
+      // this structured extraction task.
+      thinkingConfig: { thinkingBudget: 0 },
+    },
+  });
+
   try {
-    const r = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            maxOutputTokens: 4096,
-            temperature: 0.8,
-            // Force valid JSON so parsing is reliable.
-            responseMimeType: "application/json",
-            // gemini-2.5-flash is a thinking model; thinking tokens eat the output
-            // budget and can leave the text empty/truncated. Turn thinking off for
-            // this structured extraction task.
-            thinkingConfig: { thinkingBudget: 0 },
-          },
-        }),
-      }
-    );
-    if (!r.ok) {
-      const t = await r.text();
-      return Response.json({ error: `gemini ${r.status}: ${t.slice(0, 150)}` }, { status: 502 });
+    // Gemini returns 503 (overloaded) / 429 (rate) under spiky demand. Retry a
+    // couple of times with a short backoff before surfacing the error.
+    let r: Response | null = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      r = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+          body: requestBody,
+        }
+      );
+      if (r.ok || (r.status !== 503 && r.status !== 429)) break;
+      if (attempt < 2) await new Promise((res) => setTimeout(res, 900 * (attempt + 1)));
+    }
+    if (!r || !r.ok) {
+      const t = r ? await r.text() : "";
+      const overloaded = r?.status === 503 || r?.status === 429;
+      const msg = overloaded
+        ? "המודל עמוס כרגע (עומס זמני ב-Gemini). נסי שוב בעוד רגע."
+        : `gemini ${r?.status}: ${t.slice(0, 150)}`;
+      return Response.json({ error: msg }, { status: 502 });
     }
     const d = await r.json();
     // Join every text part (a thinking model can split the answer across parts).

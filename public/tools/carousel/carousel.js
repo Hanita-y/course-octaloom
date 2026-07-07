@@ -780,6 +780,14 @@
     var consentEl = document.getElementById('gate-consent');
     var consent = !!(consentEl && consentEl.checked);
     if (!email) return;
+    // Marketing consent is required to download: no consent, no PDF.
+    var consentErr = document.getElementById('gate-consent-err');
+    if (consentEl && !consent) {
+      if (consentErr) consentErr.style.display = 'block';
+      consentEl.focus();
+      return;
+    }
+    if (consentErr) consentErr.style.display = 'none';
     var btn = this.querySelector('button[type="submit"]');
     btn.disabled = true;
     try {
@@ -794,6 +802,15 @@
     modal.classList.remove('on');
     exportPdf();
   });
+  (function () {
+    var c = document.getElementById('gate-consent');
+    if (c) c.addEventListener('change', function () {
+      if (c.checked) {
+        var err = document.getElementById('gate-consent-err');
+        if (err) err.style.display = 'none';
+      }
+    });
+  })();
 
   var exporting = false;
   async function exportPdf() {

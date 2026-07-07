@@ -5,10 +5,12 @@ import {
   POLL_CATEGORIES,
   type Lang,
   type Tone,
+  type Poll,
 } from "@/lib/polls";
 import { checkAndIncrement, MAX_GEN } from "@/lib/ratelimit";
 
-const MODEL = "gemini-2.5-flash";
+const GEMINI_MODEL = "gemini-2.5-flash";
+const KIMI_MODEL = process.env.KIMI_MODEL || "kimi-k2-0711-preview";
 const TONES: Tone[] = ["ציני", "חם", "פרובוקטיבי"];
 
 interface Body {
@@ -17,6 +19,66 @@ interface Body {
   niche?: string;
   audience?: string;
   lang: Lang;
+}
+
+interface GenResult {
+  polls: Poll[];
+  overloaded: boolean;
+  detail: string;
+}
+
+// Primary provider: Google Gemini. Retries 503/429 (transient overload) with backoff.
+async function generateWithGemini(prompt: string, key: string): Promise<GenResult> {
+  const requestBody = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      maxOutputTokens: 4096,
+      temperature: 0.8,
+      responseMimeType: "application/json",
+      // gemini-2.5-flash is a thinking model; thinking tokens eat the output budget.
+      thinkingConfig: { thinkingBudget: 0 },
+    },
+  });
+  let r: Response | null = null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    r = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`,
+      { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": key }, body: requestBody }
+    );
+    if (r.ok || (r.status !== 503 && r.status !== 429)) break;
+    if (attempt < 2) await new Promise((res) => setTimeout(res, 900 * (attempt + 1)));
+  }
+  if (!r || !r.ok) {
+    const t = r ? await r.text() : "";
+    return { polls: [], overloaded: r?.status === 503 || r?.status === 429, detail: `gemini ${r?.status}: ${t.slice(0, 120)}` };
+  }
+  const d = await r.json();
+  const parts: Array<{ text?: string }> = d?.candidates?.[0]?.content?.parts ?? [];
+  const text = parts.map((p) => p?.text || "").join("").trim();
+  return { polls: parsePolls(text), overloaded: false, detail: text ? "" : "gemini empty" };
+}
+
+// Fallback provider: Moonshot Kimi (OpenAI-compatible). Used when Gemini is
+// overloaded or unparseable, and only if KIMI_API_KEY is configured.
+async function generateWithKimi(prompt: string, key: string): Promise<GenResult> {
+  const r = await fetch("https://api.moonshot.ai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+    body: JSON.stringify({
+      model: KIMI_MODEL,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.8,
+      max_tokens: 4096,
+      response_format: { type: "json_object" },
+    }),
+  });
+  if (!r.ok) {
+    const t = await r.text();
+    return { polls: [], overloaded: r.status === 503 || r.status === 429, detail: `kimi ${r.status}: ${t.slice(0, 120)}` };
+  }
+  const d = await r.json();
+  const text: string = d?.choices?.[0]?.message?.content || "";
+  return { polls: parsePolls(text), overloaded: false, detail: text ? "" : "kimi empty" };
 }
 
 export async function POST(request: Request) {
@@ -53,60 +115,45 @@ export async function POST(request: Request) {
     return Response.json({ handoff: true, prompt, count });
   }
 
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) {
-    return Response.json({ error: "missing GEMINI_API_KEY on server" }, { status: 500 });
+  const geminiKey = process.env.GEMINI_API_KEY;
+  const kimiKey = process.env.KIMI_API_KEY;
+  if (!geminiKey && !kimiKey) {
+    return Response.json({ error: "missing GEMINI_API_KEY / KIMI_API_KEY on server" }, { status: 500 });
   }
 
-  const requestBody = JSON.stringify({
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: {
-      maxOutputTokens: 4096,
-      temperature: 0.8,
-      // Force valid JSON so parsing is reliable.
-      responseMimeType: "application/json",
-      // gemini-2.5-flash is a thinking model; thinking tokens eat the output
-      // budget and can leave the text empty/truncated. Turn thinking off for
-      // this structured extraction task.
-      thinkingConfig: { thinkingBudget: 0 },
-    },
-  });
-
   try {
-    // Gemini returns 503 (overloaded) / 429 (rate) under spiky demand. Retry a
-    // couple of times with a short backoff before surfacing the error.
-    let r: Response | null = null;
-    for (let attempt = 0; attempt < 3; attempt++) {
-      r = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-          body: requestBody,
-        }
-      );
-      if (r.ok || (r.status !== 503 && r.status !== 429)) break;
-      if (attempt < 2) await new Promise((res) => setTimeout(res, 900 * (attempt + 1)));
+    let polls: Poll[] = [];
+    let overloaded = false;
+    let detail = "";
+
+    // 1) Primary: Gemini.
+    if (geminiKey) {
+      const res = await generateWithGemini(prompt, geminiKey);
+      polls = res.polls;
+      overloaded = res.overloaded;
+      detail = res.detail;
     }
-    if (!r || !r.ok) {
-      const t = r ? await r.text() : "";
-      const overloaded = r?.status === 503 || r?.status === 429;
-      const msg = overloaded
-        ? "המודל עמוס כרגע (עומס זמני ב-Gemini). נסי שוב בעוד רגע."
-        : `gemini ${r?.status}: ${t.slice(0, 150)}`;
-      return Response.json({ error: msg }, { status: 502 });
+
+    // 2) Fallback: Kimi, when Gemini produced nothing (overload / unparseable) and a key exists.
+    if (!polls.length && kimiKey) {
+      const res = await generateWithKimi(prompt, kimiKey);
+      if (res.polls.length) {
+        polls = res.polls;
+        overloaded = false;
+        detail = "";
+      } else {
+        detail = detail || res.detail;
+        overloaded = overloaded || res.overloaded;
+      }
     }
-    const d = await r.json();
-    // Join every text part (a thinking model can split the answer across parts).
-    const parts: Array<{ text?: string }> = d?.candidates?.[0]?.content?.parts ?? [];
-    const text: string = parts.map((p) => p?.text || "").join("").trim();
-    if (!text) {
-      return Response.json({ error: "תשובה ריקה מ-Gemini" }, { status: 502 });
-    }
-    const polls = parsePolls(text);
+
     if (!polls.length) {
-      return Response.json({ error: "לא הצלחנו לפענח את התשובה, נסי שוב" }, { status: 502 });
+      const msg = overloaded
+        ? "המודלים עמוסים כרגע (עומס זמני). נסי שוב בעוד רגע."
+        : "לא הצלחנו לייצר סקרים, נסי שוב.";
+      return Response.json({ error: msg, detail }, { status: 502 });
     }
+
     // Include the prompt on the last free attempt so the UI can offer the handoff next.
     return Response.json({
       polls,

@@ -1,24 +1,30 @@
 import Image from "next/image";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import ChapterList from "@/components/ChapterList";
+import HeroProgress from "@/components/HeroProgress";
 import NewsletterPrompt from "@/components/NewsletterPrompt";
 import { requireCourseAccess } from "@/lib/access";
 
 export default async function CoursePage() {
   await requireCourseAccess();
   return (
-    <div className="wrap">
+    <>
+      <section className="course-hero">
+        <div className="ch-inner">
+          <span className="eyebrow">
+            <LinkedInIcon />
+            לינקדאין 2026: הפרופיל כפרומפט
+          </span>
+          <h1>
+            קורס הלינקדאין שיעשה לך סדר, <span className="accent">צעד אחר צעד</span>
+          </h1>
+          <p className="sub">פתיח, פרק היכרות, ו-5 פרקים. בחרו פרק כדי לצפות.</p>
+          <HeroProgress />
+        </div>
+      </section>
+
+      <div className="wrap">
       <NewsletterPrompt />
-      <div className="hero">
-        <span className="eyebrow">
-          <LinkedInIcon />
-          OctaLoom · קורס לינקדאין
-        </span>
-        <h1>
-          קורס הלינקדאין שלכם, <span className="accent">צעד אחר צעד</span>
-        </h1>
-        <p className="sub">פתיח, פרק היכרות, ו-5 פרקים. בחרו פרק כדי לצפות.</p>
-      </div>
 
       <section className="welcome">
         <Image className="wm" src="/brand/symbol-purple.png" alt="" width={200} height={200} />
@@ -69,6 +75,7 @@ export default async function CoursePage() {
       </section>
 
       <ChapterList />
-    </div>
+      </div>
+    </>
   );
 }

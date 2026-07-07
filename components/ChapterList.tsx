@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CHAPTERS } from "@/lib/chapters";
-import { getProgress, overallPercent, completedCount, type ProgressMap } from "@/lib/progress";
+import { getProgress, type ProgressMap } from "@/lib/progress";
 
 export default function ChapterList() {
   const [p, setP] = useState<ProgressMap>({});
@@ -19,52 +19,46 @@ export default function ChapterList() {
     };
   }, []);
 
-  const overall = overallPercent(p);
-  const done = completedCount(p);
-
   return (
     <>
-      <div className="course-progress">
-        <div className="cp-head">
-          <span>ההתקדמות שלכם בקורס</span>
-          <span className="cp-pct">{overall}%</span>
-        </div>
-        <div className="cp-bar">
-          <div className="cp-fill" style={{ width: `${overall}%` }} />
-        </div>
-        <div className="cp-meta">
-          {done === CHAPTERS.length
-            ? "סיימתם את כל הקורס 🎉"
-            : `${done} מתוך ${CHAPTERS.length} פרקים הושלמו · נשארו ${CHAPTERS.length - done}`}
-        </div>
+      <div className="index-head">
+        <h2>תוכן הקורס</h2>
+        <span>{CHAPTERS.length} פרקים</span>
       </div>
 
       <div className="chapters">
         {CHAPTERS.map((ch, i) => {
           const pct = Math.min(100, p[ch.id] || 0);
           const complete = pct >= 95;
+          const current = i === CHAPTERS.findIndex((c) => Math.min(100, p[c.id] || 0) < 95);
           return (
             <Link
               key={ch.id}
               href={`/course/${ch.id}`}
-              className="chapter"
-              style={{ animationDelay: `${i * 0.05}s` }}
+              className={`chapter${complete ? " done" : ""}`}
+              style={{ animationDelay: `${i * 0.04}s` }}
             >
-              <span className={`chapter-label${complete ? " done" : ""}`}>
-                {complete ? "✓" : ch.label}
-              </span>
+              <span className="ch-num">{String(i + 1).padStart(2, "0")}</span>
               <div className="chapter-body">
                 <h3>{ch.title}</h3>
                 <p>{ch.desc}</p>
-                {pct > 0 && (
+                {pct > 0 && !complete && (
                   <div className="ch-bar">
                     <div className="ch-fill" style={{ width: `${pct}%` }} />
                   </div>
                 )}
               </div>
               <div className="chapter-meta">
-                <span className="dur">{pct > 0 ? (complete ? "הושלם" : `${pct}%`) : ch.duration}</span>
-                <span className="arrow">←</span>
+                <span className="ch-label">{ch.label} · {ch.duration}</span>
+                {complete ? (
+                  <span className="ch-state done">✓ הושלם</span>
+                ) : current ? (
+                  <span className="ch-state now">{pct > 0 ? `${pct}%` : "הפרק הבא"}</span>
+                ) : pct > 0 ? (
+                  <span className="ch-state part">{pct}%</span>
+                ) : (
+                  <span className="arrow">←</span>
+                )}
               </div>
             </Link>
           );

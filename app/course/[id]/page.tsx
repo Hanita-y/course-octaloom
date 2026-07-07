@@ -26,16 +26,21 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
   const next = CHAPTERS[idx + 1];
 
   return (
-    <div className="wrap">
-      <Link href="/" className="backlink">→ חזרה לקורס</Link>
+    <>
+      <section className="lesson-hero">
+        <div className="lh-inner">
+          <span className="lh-num" aria-hidden>{String(idx + 1).padStart(2, "0")}</span>
+          <Link href="/" className="backlink dark">→ חזרה לקורס</Link>
+          <div className="lh-meta">
+            <span className="lh-label">{ch.label}</span>
+            <span className="lh-dur">{ch.duration}</span>
+          </div>
+          <h1 className="lesson-title">{ch.title}</h1>
+          <p className="lh-desc">{ch.desc}</p>
+        </div>
+      </section>
 
-      <div className="lesson-head">
-        <span className="lesson-label">{ch.label}</span>
-        <h1 style={{ fontSize: 26, flex: 1 }}>{ch.title}</h1>
-        <span className="dur">{ch.duration}</span>
-      </div>
-      <p className="sub" style={{ marginBottom: 18 }}>{ch.desc}</p>
-
+      <div className="wrap lesson-wrap">
       <ChapterPlayer chapter={ch} />
 
       {ch.overview && (
@@ -61,6 +66,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
           <span />
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

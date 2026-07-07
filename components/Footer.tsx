@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="inner">
         <div className="col brandcol">
           <a className="logo" href={SITE} target="_blank" rel="noopener noreferrer">
-            <Image src="/brand/nav-logo.png" alt="OctaLoom" width={130} height={32} />
+            <span className="logo-green" role="img" aria-label="OctaLoom" />
           </a>
           <p>מחלקת השיווק שלך, רק בלי המחלקה.</p>
           <a className="goodies" href="https://octagoodies.com/" target="_blank" rel="noopener noreferrer">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TOOLS } from "@/lib/tools";
 import LinkedInIcon from "@/components/LinkedInIcon";
+import ToolIcon from "@/components/ToolIcon";
 
 const BADGE_LABEL: Record<string, string> = {
   ai: "AI",
@@ -10,18 +11,21 @@ const BADGE_LABEL: Record<string, string> = {
 
 export default function ToolsPage() {
   return (
-    <div className="wrap">
-      <div className="hero">
-        <span className="eyebrow">
-          <LinkedInIcon />
-          OctaLoom · קורס לינקדאין
-        </span>
-        <h1>
-          כל הכלים של הקורס, <span className="accent">במקום אחד</span>
-        </h1>
-        <p className="sub">בחרו כלי כדי להתחיל. כל כלי בנוי לפי החומר של הקורס.</p>
-      </div>
+    <>
+      <section className="course-hero compact">
+        <div className="ch-inner">
+          <span className="eyebrow">
+            <LinkedInIcon />
+            OctaLoom · קורס לינקדאין
+          </span>
+          <h1>
+            כל הכלים של הקורס, <span className="accent">במקום אחד</span>
+          </h1>
+          <p className="sub">בחרו כלי כדי להתחיל. כל כלי בנוי לפי החומר של הקורס.</p>
+        </div>
+      </section>
 
+      <div className="wrap">
       <div className="grid">
         {TOOLS.map((tool) => {
           const soon = tool.status === "soon";
@@ -29,9 +33,13 @@ export default function ToolsPage() {
           const badgeText = soon ? "בקרוב" : BADGE_LABEL[tool.type];
           // Hide the "מוכן" badge on live static tools; keep AI / Gem / בקרוב.
           const showBadge = soon || tool.type === "ai" || tool.type === "gem";
+          const cardClass = `toolcard t-${tool.type}${soon ? " soon" : ""}`;
           const inner = (
             <>
-              {showBadge && <span className={`badge ${badgeClass}`}>{badgeText}</span>}
+              <div className="tc-head">
+                <span className="tc-icon"><ToolIcon id={tool.id} /></span>
+                {showBadge && <span className={`badge ${badgeClass}`}>{badgeText}</span>}
+              </div>
               <h3>{tool.title}</h3>
               <p>{tool.desc}</p>
               {!soon && <span className="arrow">←</span>}
@@ -39,7 +47,7 @@ export default function ToolsPage() {
           );
           if (soon || !tool.href) {
             return (
-              <div className="toolcard soon" key={tool.id}>
+              <div className={cardClass} key={tool.id}>
                 {inner}
               </div>
             );
@@ -47,7 +55,7 @@ export default function ToolsPage() {
           if (tool.external) {
             return (
               <a
-                className="toolcard"
+                className={cardClass}
                 href={tool.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -58,12 +66,13 @@ export default function ToolsPage() {
             );
           }
           return (
-            <Link className="toolcard" href={tool.href} key={tool.id}>
+            <Link className={cardClass} href={tool.href} key={tool.id}>
               {inner}
             </Link>
           );
         })}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

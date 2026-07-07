@@ -106,6 +106,15 @@ export const TOOLS: Tool[] = [
     status: "live",
   },
   {
+    id: "linkedin-formatter",
+    title: "מעצב טקסט ללינקדאין",
+    desc: "הופכים טקסט רגיל לבולד, איטליק, קו תחתון וחצים בעזרת יוניקוד, טקסט אמיתי שמדביקים בכל שדה: פוסט, כותרת, About או תגובה.",
+    href: "https://www.octagoodies.com/linkedin-formatter",
+    external: true,
+    type: "static",
+    status: "live",
+  },
+  {
     id: "b2b-outreach",
     title: "עוזר חיפוש הלקוח האידיאלי",
     desc: "כלי שעוזר לאתר ולמפות את הלקוחות האידיאליים (ICP) שלכם לפנייה ממוקדת.",

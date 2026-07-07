@@ -98,17 +98,17 @@
   // A real confession-style (Mistake & Fix) sample so the demo shows the tool at its best.
   var DEMO_SLIDES = {
     he: [
-      { role: 'intro',   title: 'חיסלתי את החשיפה שלי בלינקדאין', body: 'לקח לי חודשים להבין מה עשיתי לא נכון.' },
-      { role: 'content', title: 'פרסמתי בלי עקביות', body: 'פוסט פעם בשבועיים, כשהתחשק לי. האלגוריתם שכח שאני קיימת בין פוסט לפוסט.' },
-      { role: 'content', title: 'כתבתי על הכל', body: 'שיווק, פרודוקטיביות, קצת מהחיים. אף אחד לא ידע בשביל מה לעקוב אחריי.' },
-      { role: 'content', title: 'רדפתי אחרי לייקים', body: 'כתבתי מה שנחמד, לא מה שנכון. תוכן שכולם אוהבים ואף אחד לא זוכר.' },
+      { role: 'intro',   title: 'הרסתי את החשיפה שלי בלינקדאין', body: 'לקח לי חודשים להבין מה עשיתי לא נכון.' },
+      { role: 'content', title: 'הייתי מפרסמת בלי עקביות', body: 'פוסט פעם בשבועיים, כשהתחשק לי. האלגוריתם שכח שאני קיימת בין פוסט לפוסט.' },
+      { role: 'content', title: 'מה קורה בחשיפה נמוכה?', body: 'הפוסטים מגיעים לאותם כמה אנשים, והלקוחות שחיפשתי בכלל לא רואים אותי.' },
+      { role: 'content', title: 'היא לא רשת חברתית', body: 'היא רשת עסקית, ובעסקים לכל צד יש אינטרס מובהק שהשני יפעל. לכן חשוב להגיב ולייצר אינטראקציה.' },
       { role: 'outro',   title: 'מה ששינה הכל', body: 'נושא אחד, קול אחד, קצב קבוע. תגיבו ואשלח לכם את המבנה המלא.' }
     ],
     en: [
-      { role: 'intro',   title: 'How I killed my own LinkedIn reach', body: 'It took me months to see what I was doing wrong.' },
+      { role: 'intro',   title: 'How I wrecked my own LinkedIn reach', body: 'It took me months to see what I was doing wrong.' },
       { role: 'content', title: 'I posted with no consistency', body: 'Once every two weeks, whenever I felt like it. The algorithm forgot I existed between posts.' },
-      { role: 'content', title: 'I wrote about everything', body: 'Marketing, productivity, a bit of life. Nobody knew what to follow me for.' },
-      { role: 'content', title: 'I chased likes', body: 'I wrote what was nice, not what was true. Content everyone likes and nobody remembers.' },
+      { role: 'content', title: 'What low reach actually costs', body: 'Posts reach the same few people, and the clients I wanted never see me.' },
+      { role: 'content', title: "It's not a social network", body: "It's a business network, and in business each side has a real interest in the other acting. That's why commenting and engaging matter." },
       { role: 'outro',   title: 'What changed everything', body: 'One topic, one voice, a steady rhythm. Comment and I will send you the full structure.' }
     ]
   };

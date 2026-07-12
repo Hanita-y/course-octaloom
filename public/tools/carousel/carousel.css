@@ -405,6 +405,22 @@
     }
     .dl-demo-note { color: #B3261E; font-size: 13.5px; margin: 10px 0 0; display: none; }
 
+    /* LinkedIn-style reaction bar under the preview strip */
+    .li-reactions {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 4px 2px; min-width: 0;
+    }
+    .li-react-icons { display: inline-flex; align-items: center; flex: 0 0 auto; }
+    .li-react-icons img {
+      width: 18px; height: 18px; display: block; border-radius: 50%;
+      box-shadow: 0 0 0 1.5px var(--white);
+    }
+    .li-react-icons img + img { margin-inline-start: -5px; }
+    .li-react-count {
+      font-size: 12.5px; color: rgba(32,30,75,.55); line-height: 1;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
     /* ===== TAB TOUR (animated coachmarks) ===== */
     .tabs .tour-replay {
       flex: 0 0 auto; margin-inline-start: auto; margin-inline-end: 8px;

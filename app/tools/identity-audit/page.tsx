@@ -77,6 +77,7 @@ export default function IdentityAuditPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          tool: "identity-audit",
           title: DOC_TITLE,
           eyebrow: DOC_EYEBROW,
           intro: DOC_INTRO,

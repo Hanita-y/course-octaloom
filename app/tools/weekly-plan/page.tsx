@@ -5,10 +5,16 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { syncTool } from "@/lib/progress-sync";
 import { PLAN, type PlanItem } from "@/lib/plan";
+import { planEvents } from "@/lib/plan-calendar";
+import { buildIcs, downloadIcs } from "@/lib/ics";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import ToolNote from "@/components/ToolNote";
 
 const KEY = "octa-weekly-plan";
+const DOC_TITLE = "תוכנית 30 הימים שלי בלינקדאין";
+const DOC_EYEBROW = "לינקדאין עם OctaLoom · פרק 5";
+const DOC_INTRO = "כל זה 30 דקות ביום. זה לא כזה נורא, וזה מה שמניע את המנוע.";
+const HOURS = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 
 // Wrap runs of Latin letters in <bdi> so mixed Hebrew/Latin text keeps the right
 // visual order in the RTL layout (e.g. "Identity Audit, 10 דקות" no longer flips).
@@ -78,6 +84,8 @@ function renderItem(it: PlanItem): ReactNode[] {
 
 export default function WeeklyPlanPage() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [mail, setMail] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [hour, setHour] = useState(9);
 
   // Load saved checkmarks from localStorage (no backend needed).
   useEffect(() => {
@@ -128,10 +136,42 @@ export default function WeeklyPlanPage() {
     syncTool("weekly-plan", "use");
   }
 
-  function emailOpen() {
-    const subject = encodeURIComponent("המשימות שנשארו לי בתוכנית 30 יום בלינקדאין");
-    const body = encodeURIComponent(sectionText(true));
-    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  // One card per plan section, each item a ✓/☐ line. Matches the emailed doc layout.
+  function docSections() {
+    return PLAN.map((s) => ({
+      title: s.title,
+      body: [s.meta, "", ...s.items.map((it) => `${checked[it.id] ? "✓" : "☐"} ${it.text}`)].join("\n"),
+    }));
+  }
+
+  async function emailPlan() {
+    setMail("sending");
+    try {
+      const res = await fetch("/api/email-tool", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          tool: "weekly-plan",
+          title: DOC_TITLE,
+          eyebrow: DOC_EYEBROW,
+          intro: DOC_INTRO,
+          sections: docSections(),
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      setMail("sent");
+      syncTool("weekly-plan", "use");
+    } catch {
+      setMail("error");
+    }
+  }
+
+  const events = planEvents(checked, hour);
+
+  function addToCalendar() {
+    if (!events.length) return;
+    downloadIcs(buildIcs(events, "לינקדאין: תוכנית 30 יום"), "linkedin-30-day-plan");
+    syncTool("weekly-plan", "use");
   }
 
   return (
@@ -168,7 +208,51 @@ export default function WeeklyPlanPage() {
         </div>
         <div className="wp-actions">
           <button className="copy" onClick={copyAll}>העתקת התוכנית</button>
-          <button className="copy" onClick={emailOpen}>שליחת המשימות שנשארו למייל</button>
+          <button className="copy" onClick={emailPlan} disabled={mail === "sending"}>
+            {mail === "sending" ? "שולחת…" : mail === "sent" ? "נשלח למייל ✓" : "שליחת התוכנית למייל"}
+          </button>
+        </div>
+        {mail === "error" && (
+          <p style={{ marginTop: 8, fontSize: 13, color: "var(--error)" }}>
+            השליחה נכשלה. אפשר להעתיק את התוכנית במקום.
+          </p>
+        )}
+        {mail === "sent" && (
+          <p style={{ marginTop: 8, fontSize: 13, color: "var(--purple)", fontWeight: 600 }}>
+            שלחנו לכתובת שאיתה נרשמת לקורס.
+          </p>
+        )}
+      </div>
+
+      <div className="wp-progress">
+        <div className="cp-head">
+          <span>להוסיף את התוכנית ליומן</span>
+          <span className="cp-pct">{events.length} אירועים</span>
+        </div>
+        <p style={{ fontSize: 13.5, color: "var(--muted)", margin: "8px 0 12px", lineHeight: 1.6 }}>
+          מורידים קובץ יומן אחד עם כל המשימות שעוד לא סימנתם, פרוסות לפי השבועות של התוכנית,
+          כל אחת לפי הזמן שהיא באמת לוקחת. השגרה היומית נכנסת כאירוע חוזר ל-30 יום.
+          פותחים את הקובץ והיומן (גוגל, אאוטלוק או אפל) קולט את הכל.
+        </p>
+        <div className="wp-actions" style={{ alignItems: "center" }}>
+          <label style={{ margin: 0, display: "flex", alignItems: "center", gap: 8, fontWeight: 400 }}>
+            שעת התחלה
+            <select
+              value={hour}
+              onChange={(e) => setHour(Number(e.target.value))}
+              style={{ width: "auto", padding: "8px 12px", background: "var(--card)" }}
+            >
+              {HOURS.map((h) => (
+                <option key={h} value={h}>{String(h).padStart(2, "0")}:00</option>
+              ))}
+            </select>
+          </label>
+          <button className="copy" onClick={addToCalendar} disabled={!events.length}>
+            הורדה ליומן (ics.)
+          </button>
+        </div>
+        <div className="cp-meta" style={{ marginTop: 10 }}>
+          מתחיל ביום ראשון הקרוב. בגוגל קלנדר צריך לייבא את הקובץ דרך Settings ← Import.
         </div>
       </div>
 

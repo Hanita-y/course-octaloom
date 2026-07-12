@@ -10,7 +10,10 @@ export type PrintDocOptions = {
   eyebrow?: string;
   intro?: string;
   sections: PrintSection[];
+  /** Plain-text footer line. Used by the PDF. */
   footer?: string;
+  /** Raw HTML footer (links, sign-off). Used by the emailed copy; wins over `footer`. */
+  footerHtml?: string;
   fileName?: string;
 };
 
@@ -63,8 +66,19 @@ export function buildDocHtml(opts: PrintDocOptions): string {
   .q h2 { font-size: 13pt; margin: 2px 0 8px; font-weight: 600; }
   .a { margin: 0; white-space: pre-wrap; }
   .empty { color: rgba(32,30,75,.45); }
-  footer { margin-top: 22px; padding-top: 14px; border-top: 1px solid rgba(32,30,75,.12);
+  footer { margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(32,30,75,.12);
            color: rgba(32,30,75,.55); font-size: 9.5pt; }
+  footer .sign { margin: 0 0 10px; font-size: 10.5pt; color: rgba(32,30,75,.75); line-height: 1.65; }
+  footer .sig { margin: 0 0 14px; font-weight: 600; font-size: 10.5pt; color: #201E4B; }
+  footer .links { margin: 0 0 12px; font-size: 10.5pt; }
+  footer .links a { display: inline-block; color: #712EAC; text-decoration: none; font-weight: 600;
+                    background: #F3E8FC; border-radius: 100px; padding: 6px 13px; margin: 0 4px 6px 0; }
+  footer .ico { margin-inline-end: 5px; }
+  /* LinkedIn mark as text: image logos get stripped or blocked by most mail clients. */
+  footer .ico-in { display: inline-block; background: #712EAC; color: #F3E8FC; border-radius: 3px;
+                   font-size: 8pt; font-weight: 700; line-height: 1; padding: 3px 4px;
+                   margin-inline-end: 5px; font-family: Arial, sans-serif; }
+  footer .fine { margin: 0; font-size: 9pt; color: rgba(32,30,75,.5); line-height: 1.6; }
   @media print { body { background: #ECE9E7; -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
 </style>
 </head>
@@ -74,7 +88,7 @@ export function buildDocHtml(opts: PrintDocOptions): string {
   ${opts.intro ? `<p class="intro">${escapeHtml(opts.intro)}</p>` : ""}
   <div class="rule"></div>
   ${sections}
-  ${opts.footer ? `<footer>${escapeHtml(opts.footer)}</footer>` : ""}
+  ${opts.footerHtml ? `<footer>${opts.footerHtml}</footer>` : opts.footer ? `<footer>${escapeHtml(opts.footer)}</footer>` : ""}
 </body>
 </html>`;
 }

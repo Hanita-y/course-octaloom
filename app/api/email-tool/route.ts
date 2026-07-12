@@ -5,7 +5,28 @@ export const runtime = "nodejs";
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const FROM = process.env.RESEND_FROM || "OctaLoom <course@octaloom.com>";
+const REPLY_TO = process.env.RESEND_REPLY_TO || "hanita@octaloom.com";
 const MAX_CHARS = 20_000;
+
+// Signature, links and the "why did I get this" line. Lives server-side so the
+// email carries it and the printed PDF stays a clean one-liner.
+const FOOTER_HTML = `
+  <p class="sign">
+    זהו. יש לכם עכשיו נוסחת בידול כתובה, וזה יותר ממה שיש לרוב האנשים בלינקדאין.
+    אם משהו כאן לא יושב, או שאתם רוצים זוג עיניים על התשובות לפני שמתחילים לכתוב,
+    פשוט השיבו למייל הזה. אני קוראת הכול.
+  </p>
+  <p class="sig">חניתה יודובסקי · OctaLoom</p>
+  <p class="links">
+    <a href="https://course.octaloom.com/tools/identity-audit"><span class="ico">✍️</span>חזרה לתרגיל</a>
+    <a href="https://course.octaloom.com"><span class="ico">🎓</span>הקורס</a>
+    <a href="https://octaloom.com"><span class="ico">🌐</span>OctaLoom</a>
+    <a href="https://www.linkedin.com/in/hanita-yudovski"><span class="ico-in">in</span>בואו נתחבר בלינקדאין</a>
+  </p>
+  <p class="fine">
+    קיבלתם את המייל הזה כי ביקשתם לשלוח לעצמכם את התרגיל Identity Audit מתוך הקורס
+    ״לינקדאין עם OctaLoom״. אם לא ביקשתם, אפשר להתעלם ממנו.
+  </p>`;
 
 // Emails a tool's filled-in output to the signed-in user's own address.
 // Replaces the old mailto: link, which silently did nothing for anyone without
@@ -22,7 +43,6 @@ export async function POST(request: Request) {
     title?: string;
     eyebrow?: string;
     intro?: string;
-    footer?: string;
     sections?: PrintSection[];
   };
   try {
@@ -51,7 +71,7 @@ export async function POST(request: Request) {
     title,
     eyebrow: body.eyebrow,
     intro: body.intro,
-    footer: body.footer,
+    footerHtml: FOOTER_HTML,
     sections: sections.map((s) => ({ title: String(s.title || ""), body: String(s.body || "") })),
   });
 
@@ -61,7 +81,7 @@ export async function POST(request: Request) {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ from: FROM, to, subject: title, html }),
+    body: JSON.stringify({ from: FROM, to, reply_to: REPLY_TO, subject: title, html }),
   });
 
   if (!res.ok) {

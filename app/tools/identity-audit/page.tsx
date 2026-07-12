@@ -80,7 +80,6 @@ export default function IdentityAuditPage() {
           title: DOC_TITLE,
           eyebrow: DOC_EYEBROW,
           intro: DOC_INTRO,
-          footer: DOC_FOOTER,
           sections: docSections(),
         }),
       });
@@ -189,7 +188,7 @@ export default function IdentityAuditPage() {
               </p>
             )}
             {mail === "sent" && (
-              <p style={{ marginTop: 8, fontSize: 13, color: "var(--faint)" }}>
+              <p style={{ marginTop: 8, fontSize: 13, color: "var(--purple)", fontWeight: 600 }}>
                 שלחנו לכתובת שאיתה נרשמת לקורס.
               </p>
             )}

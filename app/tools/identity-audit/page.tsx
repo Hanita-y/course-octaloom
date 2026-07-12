@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { syncTool } from "@/lib/progress-sync";
 import { AUDIT_QUESTIONS } from "@/lib/plan";
+import { printPdf } from "@/lib/print-pdf";
 import LinkedInIcon from "@/components/LinkedInIcon";
 import ToolNote from "@/components/ToolNote";
 
@@ -61,7 +62,23 @@ export default function IdentityAuditPage() {
   function email() {
     const subject = encodeURIComponent("ה-Identity Audit שלי");
     const body = encodeURIComponent(buildText());
+    syncTool("identity-audit", "use");
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  function pdf() {
+    printPdf({
+      title: "ה-Identity Audit שלי",
+      eyebrow: "לינקדאין עם OctaLoom · פרק 5",
+      intro: "נוסחת הבידול שלי בתוכן. מישהו אחר יכול לדבר על אותו נושא, הוא לא יכול לדבר על הניסיון שלי.",
+      sections: AUDIT_QUESTIONS.map((q) => ({
+        title: q.q,
+        body: (answers[q.id] || "").trim(),
+      })),
+      footer: "octaloom.com · תחזרו לזה לפני כל פוסט.",
+      fileName: "identity-audit",
+    });
+    syncTool("identity-audit", "use");
   }
 
   return (
@@ -86,11 +103,29 @@ export default function IdentityAuditPage() {
         </p>
       </div>
 
-      <div className="card">
-        <div className="step-label">3 שאלות · התשובות נשמרות אצלכם בדפדפן</div>
-        {AUDIT_QUESTIONS.map((q, i) => (
-          <div key={q.id}>
-            <label>{i + 1}. {q.q}</label>
+      <div className="wp-progress">
+        <div className="cp-head">
+          <span>ההתקדמות שלי</span>
+          <span className="cp-pct">{filled.length}/{AUDIT_QUESTIONS.length}</span>
+        </div>
+        <div className="cp-bar">
+          <div
+            className="cp-fill"
+            style={{ width: `${(filled.length / AUDIT_QUESTIONS.length) * 100}%` }}
+          />
+        </div>
+        <div className="cp-meta">3 שאלות · התשובות נשמרות אצלכם בדפדפן</div>
+      </div>
+
+      {AUDIT_QUESTIONS.map((q, i) => (
+        <section className="wp-section" key={q.id}>
+          <div className="wp-head">
+            <span className="wp-num">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h2>{q.q}</h2>
+            </div>
+          </div>
+          <div className="wp-items">
             <textarea
               placeholder={q.ph}
               value={answers[q.id] || ""}
@@ -98,11 +133,8 @@ export default function IdentityAuditPage() {
               style={{ minHeight: 90 }}
             />
           </div>
-        ))}
-        <div className="counter">
-          {filled.length}/{AUDIT_QUESTIONS.length} שאלות מולאו · נשמר אוטומטית
-        </div>
-      </div>
+        </section>
+      ))}
 
       {done && (
         <div className="card">
@@ -116,6 +148,9 @@ export default function IdentityAuditPage() {
             <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
               <button className="copy" onClick={copy}>
                 {saved ? "הועתק ✓" : "העתקת הטקסט"}
+              </button>
+              <button className="copy" onClick={pdf}>
+                הורדה כ-PDF
               </button>
               <button className="copy" onClick={email}>
                 שליחה למייל שלי

@@ -447,6 +447,11 @@ input[type=text],textarea,select{width:100%;background:var(--cream);border:1px s
   border-radius:var(--radius-card);color:var(--ink);padding:13px 15px;font-size:14.5px;font-family:inherit;resize:vertical}
 input::placeholder,textarea::placeholder{color:rgba(32,30,75,.38)}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(113,46,172,.10)}
+/* Fields that sit directly on the cream page ground (no .card behind them) would
+   otherwise vanish: same bg as the page. Lift them onto the card surface. */
+.wp-items input[type=text],.wp-items textarea,.wp-items select{
+  background:var(--card);border-color:rgba(32,30,75,.22);box-shadow:var(--shadow-sm)}
+.wp-items textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(113,46,172,.10)}
 
 button{font-family:inherit;cursor:pointer;border:none;border-radius:var(--radius-pill);font-weight:500;font-size:15px;transition:.15s}
 .btn-primary{background:var(--purple);color:var(--cream);padding:14px 24px;width:100%}
@@ -515,7 +520,7 @@ button{font-family:inherit;cursor:pointer;border:none;border-radius:var(--radius
 .handoff{background:var(--green-tint);border:1px solid var(--green);border-radius:var(--radius-card);padding:20px;margin-top:14px}
 .handoff h3{margin:0 0 8px;color:var(--purple);font-size:15.5px;font-weight:500}
 .handoff p{font-size:13.5px;color:var(--muted);margin:0 0 10px}
-.handoff textarea{min-height:160px;font-size:12.5px;background:var(--card)}
+.handoff textarea{min-height:160px;font-size:12.5px;background:var(--cream);border-color:rgba(32,30,75,.22)}
 .note{font-size:12px;color:var(--muted);margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
 
 /* ---------- poll generator ---------- */
